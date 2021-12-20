@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+DEFAULT_AVD_PATH=~/.android/avd
+
+# Use provided path by user or fallback to the default one
+avd_path=${1:-$DEFAULT_AVD_PATH}
+# Remove trailing slash if present
+avd_path=${avd_path%/}
+echo "🔊 Processing emulators from: $avd_path"
+
+for emulator in $(find $avd_path -type d -name '*.avd'); do   
+    if [ ! -f $emulator/config.ini ]; then
+        echo "❌ Skipping emulator - could not config.ini inside $emulator"
+        continue
+    fi
+    echo "🔊 Processing - $(basename $emulator)"
+
+    # Remove line hw.audioInput - if exists
+    sed -i '' '/^hw.audioInput/d' $emulator/config.ini
+    
+    # Remove line hw.audioOutput - if exists
+    sed -i '' '/^hw.audioOutput/d' $emulator/config.ini
+    
+    # Disable audio input and output
+    echo "hw.audioInput=no" >> $emulator/config.ini
+    echo "hw.audioOutput=no" >> $emulator/config.ini
+
+    # Sort config keys
+    sort -o $emulator/config.ini $emulator/config.ini
+
+    echo "✅ Done - $(basename $emulator)"
+done
