@@ -2,6 +2,15 @@
 
 DEFAULT_AVD_PATH=~/.android/avd
 
+function run_sed {
+    if [ "$(uname)" == "Darwin" ]; then
+        # macOS requires extra argument for -i param
+        sed -i '' $1 $2
+    else
+        sed -i $1 $2
+    fi
+}
+
 # Use provided path by user or fallback to the default one
 avd_path=${1:-$DEFAULT_AVD_PATH}
 # Remove trailing slash if present
@@ -16,10 +25,10 @@ for emulator in $(find $avd_path -type d -name '*.avd'); do
     echo "🔊 Processing - $(basename $emulator)"
 
     # Remove line hw.audioInput - if exists
-    sed -i '' '/^hw.audioInput/d' $emulator/config.ini
+    run_sed '/^hw.audioInput/d' $emulator/config.ini
     
     # Remove line hw.audioOutput - if exists
-    sed -i '' '/^hw.audioOutput/d' $emulator/config.ini
+    run_sed '/^hw.audioOutput/d' $emulator/config.ini
     
     # Disable audio input and output
     echo "hw.audioInput=no" >> $emulator/config.ini
