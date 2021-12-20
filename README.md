@@ -3,7 +3,7 @@
 The goal of the script is to fix common Bluetooth issue when running Android Emulator on macOS. Script modifies emulator configs in batch, so you don't have to do it manually, one by one.
 
 ## Usage
-Simply call the script from the repo.
+Simply call the script from the repo. Before calling the script make sure that emulator is closed.
 ```bash
  ./fix-android-emulator-audio
 
@@ -19,6 +19,11 @@ By default script will look on emulators located at `~/.android/avd`. Script acc
 ```bash
 ./fix-android-emulator-audio path/to/your/avd/directory
 ```
+
+When running emulator for the first time after applying the fix make sure that data is wiped and emulator is started with Cold Boot option.
+<p align="center">
+ <img width="449" alt="coldboot" src="https://user-images.githubusercontent.com/529635/146804992-07182ed9-b195-4b0a-90fe-6adc3c79f2ec.png">
+</p>
 
 ## How does it works
 Script modifiy emulator config and disable audio input and output by specyfing
