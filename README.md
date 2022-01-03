@@ -20,6 +20,13 @@ By default script will look on emulators located at `~/.android/avd`. Script acc
 ./fix-android-emulator-audio path/to/your/avd/directory
 ```
 
+Optionally you can pass `--wipe` option to wipe emulator's data so you don't have to do it manually via Android Studio. Script removes following files and directories:
+```
+* snapshots/
+* userdata.img
+* userdata-qemu.img
+```
+
 When running emulator for the first time after applying the fix make sure that data is wiped and emulator is started with Cold Boot option.
 <p align="center">
  <img width="449" alt="coldboot" src="https://user-images.githubusercontent.com/529635/146804992-07182ed9-b195-4b0a-90fe-6adc3c79f2ec.png">

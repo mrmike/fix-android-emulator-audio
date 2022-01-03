@@ -11,8 +11,27 @@ function run_sed {
     fi
 }
 
+# Check the number of arguments
+if [ "$#" -gt 2 ]; then
+    echo "❌ Too many arguments."
+    echo "Usage: $0 <avd-path>"
+    exit 1
+fi
+
+temp_avd_path=""
+has_wipe_option=0
+# Read user arguments
+for arg in "$@"
+do
+    if [ $arg == "--wipe" ]; then
+        has_wipe_option=1
+    else
+        temp_avd_path=$arg
+    fi
+done
+
 # Use provided path by user or fallback to the default one
-avd_path=${1:-$DEFAULT_AVD_PATH}
+avd_path=${temp_avd_path:-$DEFAULT_AVD_PATH}
 # Remove trailing slash if present
 avd_path=${avd_path%/}
 echo "🔊 Processing emulators from: $avd_path"
@@ -36,6 +55,13 @@ for emulator in $(find $avd_path -type d -name '*.avd'); do
 
     # Sort config keys
     sort -o $emulator/config.ini $emulator/config.ini
+
+    # Wipe data when --wipe argument is present
+    if [ $has_wipe_option -eq 1 ]; then
+        echo "🗑️  Wiping data from: $(basename $emulator)"
+        rm -rf $emulator/snapshots
+        rm -f $emulator/userdata.img $emulator/userdata-qemu.img
+    fi
 
     echo "✅ Done - $(basename $emulator)"
 done
