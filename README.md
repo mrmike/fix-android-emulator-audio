@@ -2,10 +2,24 @@
 
 The goal of the script is to fix common Bluetooth issue when running Android Emulator on macOS. Script modifies emulator configs in batch, so you don't have to do it manually, one by one.
 
+## Installation
+There're two option to get the script.
+1. git clone
+```
+git clone git@github.com:mrmike/fix-android-emulator-audio.git
+# and call ./fix-android-emulator-audio inside repo directory
+```
+2. Homebrew
+```
+brew tap mrmike/homebrew-fix-android-emulator-audio
+brew install fix-android-emulator-audio
+# and call fix-android-emulator-audio from any location 
+```
+
 ## Usage
-Simply call the script from the repo. Before calling the script make sure that emulator is closed.
+Before calling the script make sure that emulator is closed.
 ```bash
- ./fix-android-emulator-audio
+ fix-android-emulator-audio
 
 # Sample output
 🔊 Processing emulators from: /Users/<USERNAME>/.android/avd
@@ -17,7 +31,7 @@ Simply call the script from the repo. Before calling the script make sure that e
 
 By default script will look on emulators located at `~/.android/avd`. Script accepts argument with custom `avd` directory localization
 ```bash
-./fix-android-emulator-audio path/to/your/avd/directory
+fix-android-emulator-audio path/to/your/avd/directory
 ```
 
 Optionally you can pass `--wipe` option to wipe emulator's data so you don't have to do it manually via Android Studio. Script removes following files and directories:
