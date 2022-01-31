@@ -3,7 +3,7 @@
 The goal of the script is to fix common Bluetooth issue when running Android Emulator on macOS. Script modifies emulator configs in batch, so you don't have to do it manually, one by one.
 
 ## Installation
-There're two option to get the script.
+There're a few options to get and run the script.
 1. git clone
 ```
 git clone git@github.com:mrmike/fix-android-emulator-audio.git
@@ -14,6 +14,10 @@ git clone git@github.com:mrmike/fix-android-emulator-audio.git
 brew tap mrmike/homebrew-fix-android-emulator-audio
 brew install fix-android-emulator-audio
 # and call fix-android-emulator-audio from any location 
+```
+3. curl - you can use curl to get and run the script
+```
+curl -s https://raw.githubusercontent.com/mrmike/fix-android-emulator-audio/main/fix-android-emulator-audio | bash /dev/stdin
 ```
 
 ## Usage
